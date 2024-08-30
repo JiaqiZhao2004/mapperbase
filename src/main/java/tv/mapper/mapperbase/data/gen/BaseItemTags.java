@@ -1,20 +1,23 @@
 package tv.mapper.mapperbase.data.gen;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
+import org.jetbrains.annotations.NotNull;
 import tv.mapper.mapperbase.MapperBase;
 import tv.mapper.mapperbase.data.BaseTags;
 import tv.mapper.mapperbase.world.item.BaseItems;
 
 public class BaseItemTags extends ItemTagsProvider
 {
-    public BaseItemTags(DataGenerator generatorIn, BaseBlockTags blockTagProvider, ExistingFileHelper existingFileHelper)
+    public BaseItemTags(GatherDataEvent event, BaseBlockTags blockTagProvider, String modId, ExistingFileHelper existingFileHelper)
     {
-        super(generatorIn, blockTagProvider, MapperBase.MODID, existingFileHelper);
+        super(event.getGenerator().getPackOutput(), event.getLookupProvider(), blockTagProvider, modId, existingFileHelper);
     }
 
     public void addTags()
@@ -46,5 +49,10 @@ public class BaseItemTags extends ItemTagsProvider
         tag(BaseTags.ForgeItems.PLATES).add(BaseItems.STEEL_PLATE.get());
 
         tag(ItemTags.BEACON_PAYMENT_ITEMS).add(BaseItems.STEEL_INGOT.get());
+    }
+
+    @Override
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
+
     }
 }

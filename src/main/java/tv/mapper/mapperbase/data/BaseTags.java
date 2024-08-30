@@ -1,6 +1,6 @@
 package tv.mapper.mapperbase.data;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 
@@ -12,14 +12,14 @@ public class BaseTags {
     public static class Blocks {
         @SuppressWarnings("unused")
         private static TagKey<Block> tag(String name) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(name));
         }
     }
 
     public static class Items {
         @SuppressWarnings("unused")
         private static TagKey<Item> tag(String name) {
-            return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(name));
+            return TagKey.create(Registries.ITEM, new ResourceLocation(name));
 
         }
     }
@@ -31,7 +31,7 @@ public class BaseTags {
         public static final TagKey<Block> FENCES_STEEL = tag("fences/steel");
 
         private static TagKey<Block> tag(String name) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
             // return BlockTags.bind(new ResourceLocation("forge", name).toString());
         }
     }
@@ -53,7 +53,7 @@ public class BaseTags {
         public static final TagKey<Item> PRESSURE_PLATES = tag("pressure_plates");
 
         private static TagKey<Item> tag(String name) {
-            return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.ITEM, new ResourceLocation("forge", name));
 
             //   return ItemTags.bind(new ResourceLocation("forge", name).toString());
         }

@@ -12,14 +12,23 @@ public class CustomButtonBlock extends ButtonBlock implements ToolManager
 
     public CustomButtonBlock(boolean isWooden, Properties properties, ToolTypes tool)
     {
-        super(isWooden, properties);
+        super(properties,
+                isWooden ? 30 : 20,
+                isWooden,
+                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_OFF : SoundEvents.STONE_BUTTON_CLICK_OFF,
+                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_ON);
         this.tool = tool;
         this.tier = ToolTiers.WOOD;
     }
 
     public CustomButtonBlock(boolean isWooden, Properties properties, ToolTypes tool, ToolTiers tier)
     {
-        super(isWooden, properties);
+
+        super(properties,
+                isWooden ? 30 : 20,
+                isWooden,
+                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_OFF : SoundEvents.STONE_BUTTON_CLICK_OFF,
+                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_ON);
         this.tool = tool;
         this.tier = tier;
     }

@@ -1,5 +1,6 @@
 package tv.mapper.mapperbase.world.level.block;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.DoorBlock;
 
 public class CustomDoorBlock extends DoorBlock implements ToolManager
@@ -9,14 +10,14 @@ public class CustomDoorBlock extends DoorBlock implements ToolManager
 
     public CustomDoorBlock(Properties properties, ToolTypes tool)
     {
-        super(properties);
+        super(properties, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN);
         this.tool = tool;
         this.tier = ToolTiers.WOOD;
     }
 
     public CustomDoorBlock(Properties properties, ToolTypes tool, ToolTiers tier)
     {
-        super(properties);
+        super(properties, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN);
         this.tool = tool;
         this.tier = tier;
     }

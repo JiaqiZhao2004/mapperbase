@@ -1,11 +1,13 @@
 package tv.mapper.mapperbase.data.gen;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import tv.mapper.mapperbase.data.BaseTags;
@@ -15,9 +17,9 @@ import tv.mapper.mapperbase.world.level.block.ToolManager;
 
 public class BaseBlockTags extends BlockTagsProvider
 {
-    public BaseBlockTags(DataGenerator generatorIn, String modid, ExistingFileHelper existingFileHelper)
+    public BaseBlockTags(GatherDataEvent event, String modid, ExistingFileHelper existingFileHelper)
     {
-        super(generatorIn, modid, existingFileHelper);
+        super(event.getGenerator().getPackOutput(), event.getLookupProvider(), modid, existingFileHelper);
     }
 
     public void addTags()
@@ -92,5 +94,10 @@ public class BaseBlockTags extends BlockTagsProvider
                 }
             }
         }
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider) {
+
     }
 }

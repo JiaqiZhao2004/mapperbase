@@ -1,10 +1,11 @@
 package tv.mapper.mapperbase.data.gen;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableSet;
@@ -18,7 +19,7 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -49,7 +50,8 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import tv.mapper.mapperbase.MapperBase;
+import net.minecraftforge.data.event.GatherDataEvent;
+import org.jetbrains.annotations.NotNull;
 import tv.mapper.mapperbase.world.level.block.CustomDoorBlock;
 
 public abstract class BaseLootTableProvider extends LootTableProvider {
@@ -64,9 +66,9 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     private final DataGenerator generator;
 
-    public BaseLootTableProvider(DataGenerator dataGeneratorIn) {
-        super(dataGeneratorIn);
-        this.generator = dataGeneratorIn;
+    public BaseLootTableProvider(DataGenerator generator, Set<ResourceLocation> lootTables, List<SubProviderEntry> subProviderEntryList) {
+        super(generator.getPackOutput(), lootTables, subProviderEntryList);
+        this.generator = generator;
     }
 
     protected abstract void addTables();
@@ -132,7 +134,7 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     }
 
     @Override
-    public void run(CachedOutput pOutput) {
+    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput pOutput) {
         addTables();
 
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
@@ -140,23 +142,24 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
             tables.put(entry.getKey().getLootTable(), entry.getValue().setParamSet(LootContextParamSets.BLOCK).build());
         }
         writeTables(pOutput, tables);
+        return null;
     }
 
     private void writeTables(CachedOutput pOutput, Map<ResourceLocation, LootTable> tables) {
-        Path outputFolder = this.generator.getOutputFolder();
+        Path outputFolder = this.generator.getPackOutput().getOutputFolder();
         tables.forEach((key, lootTable) ->
         {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
-            try {
-                DataProvider.saveStable(pOutput,LootTables.serialize(lootTable), path);
-            } catch (IOException e) {
-                MapperBase.LOGGER.error("Couldn't write loot table {}", path, e);
-            }
+//            try {
+            DataProvider.saveStable(pOutput,LootTables.serialize(lootTable), path);
+//            } catch (IOException e) {
+//                MapperBase.LOGGER.error("Couldn't write loot table {}", path, e);
+//            }
         });
     }
 
-    @Override
-    public String getName() {
-        return "MapperBase LootTables";
-    }
+//    @Override
+//    public String getName() {
+//        return "MapperBase LootTables";
+//    }
 }

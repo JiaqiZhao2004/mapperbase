@@ -2,6 +2,7 @@ package tv.mapper.mapperbase.data.gen;
 
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -9,15 +10,19 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraftforge.data.event.GatherDataEvent;
 import tv.mapper.mapperbase.MapperBase;
 import tv.mapper.mapperbase.world.level.block.BaseBlocks;
 import tv.mapper.mapperbase.world.level.block.SlopeBlock;
 
+import java.util.List;
+import java.util.Set;
+
 public class BaseLootTables extends BaseLootTableProvider
 {
-    public BaseLootTables(DataGenerator dataGeneratorIn)
+    public BaseLootTables(DataGenerator generator, Set<ResourceLocation> lootTables, List<SubProviderEntry> subProviderEntryList)
     {
-        super(dataGeneratorIn);
+        super(generator, lootTables, subProviderEntryList);
     }
 
     @Override
