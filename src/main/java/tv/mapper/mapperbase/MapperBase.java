@@ -1,9 +1,14 @@
 package tv.mapper.mapperbase;
 
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseCoralFanBlock;
 import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,61 +45,7 @@ public class MapperBase
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
 
         MinecraftForge.EVENT_BUS.register(new BaseOreGenerator());
-
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::addCreative);
-    }
-
-    private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == BaseGroups.MAPPERBASE) {
-            event.accept(BaseItems.BOLT);
-            event.accept(BaseItems.STEEL_FENCE_ITEM);
-            event.accept(BaseItems.STEEL_ITEM);
-            event.accept(BaseItems.STEEL_INGOT);
-            event.accept(BaseItems.STEEL_SLAB_ITEM);
-            event.accept(BaseItems.STEEL_STAIRS_ITEM);
-            event.accept(BaseItems.STEEL_WALL_ITEM);
-            event.accept(BaseItems.STEEL_FENCE_GATE_ITEM);
-            event.accept(BaseItems.STEEL_PRESSURE_PLATE_ITEM);
-            event.accept(BaseItems.FERRITE);
-            event.accept(BaseItems.FLATTER_HAMMER);
-            event.accept(BaseItems.IRON_PLATE);
-            event.accept(BaseItems.IRON_ROD);
-            event.accept(BaseItems.RAW_STEEL);
-            event.accept(BaseItems.STEEL_AXE);
-            event.accept(BaseItems.STEEL_BOOTS);
-            event.accept(BaseItems.STEEL_CHESTPLATE);
-            event.accept(BaseItems.STEEL_HELMET);
-            event.accept(BaseItems.STEEL_HOE);
-            event.accept(BaseItems.STEEL_HORSE_ARMOR);
-            event.accept(BaseItems.STEEL_LEGGINGS);
-            event.accept(BaseItems.STEEL_NUGGET);
-            event.accept(BaseItems.STEEL_PICKAXE);
-            event.accept(BaseItems.STEEL_PLATE);
-            event.accept(BaseItems.STEEL_ROD);
-            event.accept(BaseItems.STEEL_SHOVEL);
-            event.accept(BaseItems.STEEL_SWORD);
-
-            event.accept(BaseBlocks.STEEL_BLOCK);
-            event.accept(BaseBlocks.STEEL_FENCE);
-            event.accept(BaseBlocks.STEEL_FENCE_GATE);
-            event.accept(BaseBlocks.STEEL_PRESSURE_PLATE);
-            event.accept(BaseBlocks.STEEL_SLAB);
-            event.accept(BaseBlocks.STEEL_WALL);
-            event.accept(BaseBlocks.STEEL_STAIRS);
-        }
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(BaseBlocks.STEEL_BLOCK);
-            event.accept(BaseBlocks.STEEL_FENCE);
-            event.accept(BaseBlocks.STEEL_FENCE_GATE);
-            event.accept(BaseBlocks.STEEL_PRESSURE_PLATE);
-            event.accept(BaseBlocks.STEEL_SLAB);
-            event.accept(BaseBlocks.STEEL_WALL);
-            event.accept(BaseBlocks.STEEL_STAIRS);
-        }
-        if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(BaseItems.STEEL_INGOT);
-
-        }
+        MinecraftForge.EVENT_BUS.register(new BaseGroups());
     }
 
     private void setup(final FMLCommonSetupEvent event)
