@@ -1,17 +1,8 @@
 package tv.mapper.mapperbase.data.gen;
 
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -33,24 +24,23 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
-import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
-import net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder;
-import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 import tv.mapper.mapperbase.world.level.block.CustomDoorBlock;
+
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @SuppressWarnings({"unused", "SameParameterValue"})
 public abstract class BaseLootTableProvider extends LootTableProvider {
@@ -84,51 +74,51 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     protected LootTable.Builder createStandardTable(String modId, Block block) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block)).when(ExplosionCondition.survivesExplosion());
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block)).when(ExplosionCondition.survivesExplosion());
         return LootTable.lootTable().withPool(builder);
     }
 
     protected LootTable.Builder createSlabTable(String modId, Block block) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(withExplosionDecay(block, LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))));
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(withExplosionDecay(block, LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))));
         return LootTable.lootTable().withPool(builder);
     }
 
     protected LootTable.Builder createDoorTable(String modId, Block block) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CustomDoorBlock.HALF, DoubleBlockHalf.LOWER)))).when(ExplosionCondition.survivesExplosion());
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CustomDoorBlock.HALF, DoubleBlockHalf.LOWER)))).when(ExplosionCondition.survivesExplosion());
         return LootTable.lootTable().withPool(builder);
     }
 
     protected LootTable.Builder createBedTable(String modId, Block block) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BedBlock.PART, BedPart.HEAD)))).when(ExplosionCondition.survivesExplosion());
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BedBlock.PART, BedPart.HEAD)))).when(ExplosionCondition.survivesExplosion());
         return LootTable.lootTable().withPool(builder);
     }
 
     protected LootTable.Builder createChestTable(String name, Block block) {
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))).when(ExplosionCondition.survivesExplosion());
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))).when(ExplosionCondition.survivesExplosion());
         return LootTable.lootTable().withPool(builder);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     protected LootTable.Builder createSilkTable(String modId, Block block, Block loot) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(block).when(SILK_TOUCH)).otherwise(withSurvivesExplosion(block, LootItem.lootTableItem(loot))));
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(block).when(SILK_TOUCH)).otherwise(withSurvivesExplosion(block, LootItem.lootTableItem(loot))));
         return LootTable.lootTable().withPool(builder);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     protected LootTable.Builder createSilkTable(String modId, Block block, Item loot) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(block).when(SILK_TOUCH)).otherwise(withSurvivesExplosion(block, LootItem.lootTableItem(loot))));
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(block).when(SILK_TOUCH)).otherwise(withSurvivesExplosion(block, LootItem.lootTableItem(loot))));
         return LootTable.lootTable().withPool(builder);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     protected LootTable.Builder createSilkTable(String modId, Block block, Item loot, int min, int max, int fortune) {
         String name = block.getDescriptionId().replace(modId + ":", "");
-        LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(block).when(SILK_TOUCH)).otherwise(withSurvivesExplosion(block, LootItem.lootTableItem(loot).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, fortune)))));
+        LootPool.Builder builder = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(block).when(SILK_TOUCH)).otherwise(withSurvivesExplosion(block, LootItem.lootTableItem(loot).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, fortune)))));
         return LootTable.lootTable().withPool(builder);
     }
 
@@ -150,7 +140,8 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
 //            try {
-            DataProvider.saveStable(pOutput,LootTables.serialize(lootTable), path);
+            // TODO: not null!
+            DataProvider.saveStable(pOutput, null, path);
 //            } catch (IOException e) {
 //                MapperBase.LOGGER.error("Couldn't write loot table {}", path, e);
 //            }

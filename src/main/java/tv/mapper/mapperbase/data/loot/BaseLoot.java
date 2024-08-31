@@ -25,7 +25,7 @@ public class BaseLoot
             switch(file)
             {
                 case "simple_dungeon":
-                    evt.getTable().addPool(getInjectPool(file));
+                    evt.getTable() addPool(getInjectPool(file));
                     break;
                 default:
                     break;
