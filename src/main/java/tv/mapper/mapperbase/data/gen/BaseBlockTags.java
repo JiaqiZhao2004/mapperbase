@@ -1,7 +1,6 @@
 package tv.mapper.mapperbase.data.gen;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -10,6 +9,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import tv.mapper.mapperbase.data.BaseTags;
 import tv.mapper.mapperbase.world.item.BaseTiers;
 import tv.mapper.mapperbase.world.level.block.BaseBlocks;
@@ -22,7 +22,7 @@ public class BaseBlockTags extends BlockTagsProvider
         super(event.getGenerator().getPackOutput(), event.getLookupProvider(), modid, existingFileHelper);
     }
 
-    public void addTags()
+    public void addTags(HolderLookup.@NotNull Provider provider)
     {
         this.tag(BlockTags.STAIRS).add(BaseBlocks.STEEL_STAIRS.get());
         this.tag(BlockTags.SLABS).add(BaseBlocks.STEEL_SLAB.get());
@@ -40,7 +40,7 @@ public class BaseBlockTags extends BlockTagsProvider
     }
 
     // Tool system
-    protected void registerToolTags(DeferredRegister<Block> blocks)
+    protected void registerToolTags(@SuppressWarnings("SameParameterValue") DeferredRegister<Block> blocks)
     {
         for(RegistryObject<Block> object : blocks.getEntries())
         {
@@ -94,10 +94,5 @@ public class BaseBlockTags extends BlockTagsProvider
                 }
             }
         }
-    }
-
-    @Override
-    protected void addTags(HolderLookup.Provider provider) {
-
     }
 }

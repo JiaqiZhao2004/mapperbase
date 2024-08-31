@@ -6,8 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,6 +26,7 @@ import tv.mapper.mapperbase.world.level.block.BaseBlocks;
 import tv.mapper.mapperbase.world.level.block.SlopeBlock;
 import tv.mapper.mapperbase.world.level.block.UpDownBlock;
 
+@SuppressWarnings("unused")
 public class BaseBlockStates extends BlockStateProvider
 {
     protected final String mod_id;
@@ -42,11 +41,11 @@ public class BaseBlockStates extends BlockStateProvider
     protected void registerStatesAndModels()
     {
         simpleBlock(BaseBlocks.STEEL_BLOCK.get());
-        slabBlock((SlabBlock)BaseBlocks.STEEL_SLAB.get(), modLoc("block/steel_block"), modLoc("block/steel_slab_side"), modLoc("block/steel_block"), modLoc("block/steel_block"));
-        stairsBlock((StairBlock)BaseBlocks.STEEL_STAIRS.get(), modLoc("block/steel_block"), modLoc("block/steel_block"), modLoc("block/steel_block"));
-        newWallBlock((WallBlock)BaseBlocks.STEEL_WALL.get(), new UncheckedModelFile(MapperBase.MODID + ":block/steel_wall_post"), new UncheckedModelFile(MapperBase.MODID + ":block/steel_wall_side"), new UncheckedModelFile(MapperBase.MODID + ":block/steel_wall_side_tall"));
+        slabBlock(BaseBlocks.STEEL_SLAB.get(), modLoc("block/steel_block"), modLoc("block/steel_slab_side"), modLoc("block/steel_block"), modLoc("block/steel_block"));
+        stairsBlock(BaseBlocks.STEEL_STAIRS.get(), modLoc("block/steel_block"), modLoc("block/steel_block"), modLoc("block/steel_block"));
+        newWallBlock(BaseBlocks.STEEL_WALL.get(), new UncheckedModelFile(MapperBase.MODID + ":block/steel_wall_post"), new UncheckedModelFile(MapperBase.MODID + ":block/steel_wall_side"), new UncheckedModelFile(MapperBase.MODID + ":block/steel_wall_side_tall"));
         pressurePlateBlock(BaseBlocks.STEEL_PRESSURE_PLATE.get(), new UncheckedModelFile(MapperBase.MODID + ":block/steel_pressure_plate"), new UncheckedModelFile(MapperBase.MODID + ":block/steel_pressure_plate_down"));
-        fenceBlock((FenceBlock)BaseBlocks.STEEL_FENCE.get(), modLoc("block/steel_block"));
+        fenceBlock(BaseBlocks.STEEL_FENCE.get(), modLoc("block/steel_block"));
         fenceGateBlock(BaseBlocks.STEEL_FENCE_GATE.get(), modLoc("block/steel_block"));
     }
 
@@ -73,7 +72,7 @@ public class BaseBlockStates extends BlockStateProvider
             Direction dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
             Boolean powered = state.getValue(BlockStateProperties.POWERED);
 
-            return ConfiguredModel.builder().modelFile(powered ? pressed : model).rotationX(face == AttachFace.WALL ? 90 : face == AttachFace.CEILING ? 180 : 0).rotationY((((int)dir.toYRot()) + angleOffset) % 360).uvLock(face == AttachFace.WALL ? true : false).build();
+            return ConfiguredModel.builder().modelFile(powered ? pressed : model).rotationX(face == AttachFace.WALL ? 90 : face == AttachFace.CEILING ? 180 : 0).rotationY((((int)dir.toYRot()) + angleOffset) % 360).uvLock(face == AttachFace.WALL).build();
         });
     }
 

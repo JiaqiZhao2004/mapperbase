@@ -18,6 +18,7 @@ import tv.mapper.mapperbase.world.level.block.SlopeBlock;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class BaseLootTables extends BaseLootTableProvider
 {
     public BaseLootTables(DataGenerator generator, Set<ResourceLocation> lootTables, List<SubProviderEntry> subProviderEntryList)

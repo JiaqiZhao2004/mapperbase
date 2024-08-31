@@ -19,41 +19,41 @@ public class BaseGroups
         event.registerCreativeModeTab(new ResourceLocation(MapperBase.MODID, "mapperbase"), builder ->
                 builder.title(Component.translatable("itemGroup.mapperbase_group"))
                         .icon(() -> new ItemStack(BaseItems.STEEL_INGOT.get()))
-                        .displayItems((enabledFlags, populator, hasPermissions) -> {
-                            populator.accept(BaseItems.BOLT.get());
-                            populator.accept(BaseItems.STEEL_FENCE_ITEM.get());
-                            populator.accept(BaseItems.STEEL_ITEM.get());
-                            populator.accept(BaseItems.STEEL_INGOT.get());
-                            populator.accept(BaseItems.STEEL_SLAB_ITEM.get());
-                            populator.accept(BaseItems.STEEL_STAIRS_ITEM.get());
-                            populator.accept(BaseItems.STEEL_WALL_ITEM.get());
-                            populator.accept(BaseItems.STEEL_FENCE_GATE_ITEM.get());
-                            populator.accept(BaseItems.STEEL_PRESSURE_PLATE_ITEM.get());
-                            populator.accept(BaseItems.FERRITE.get());
-                            populator.accept(BaseItems.FLATTER_HAMMER.get());
-                            populator.accept(BaseItems.IRON_PLATE.get());
-                            populator.accept(BaseItems.IRON_ROD.get());
-                            populator.accept(BaseItems.RAW_STEEL.get());
-                            populator.accept(BaseItems.STEEL_AXE.get());
-                            populator.accept(BaseItems.STEEL_BOOTS.get());
-                            populator.accept(BaseItems.STEEL_CHESTPLATE.get());
-                            populator.accept(BaseItems.STEEL_HELMET.get());
-                            populator.accept(BaseItems.STEEL_HOE.get());
-                            populator.accept(BaseItems.STEEL_HORSE_ARMOR.get());
-                            populator.accept(BaseItems.STEEL_LEGGINGS.get());
-                            populator.accept(BaseItems.STEEL_NUGGET.get());
-                            populator.accept(BaseItems.STEEL_PICKAXE.get());
-                            populator.accept(BaseItems.STEEL_PLATE.get());
-                            populator.accept(BaseItems.STEEL_ROD.get());
-                            populator.accept(BaseItems.STEEL_SHOVEL.get());
-                            populator.accept(BaseItems.STEEL_SWORD.get());
-                            populator.accept(BaseBlocks.STEEL_BLOCK.get());
-                            populator.accept(BaseBlocks.STEEL_FENCE.get());
-                            populator.accept(BaseBlocks.STEEL_FENCE_GATE.get());
-                            populator.accept(BaseBlocks.STEEL_PRESSURE_PLATE.get());
-                            populator.accept(BaseBlocks.STEEL_SLAB.get());
-                            populator.accept(BaseBlocks.STEEL_WALL.get());
-                            populator.accept(BaseBlocks.STEEL_STAIRS.get());
+                        .displayItems((parameters, output) -> {
+                            output.accept(BaseItems.BOLT.get());
+                            output.accept(BaseItems.STEEL_FENCE_ITEM.get());
+                            output.accept(BaseItems.STEEL_ITEM.get());
+                            output.accept(BaseItems.STEEL_INGOT.get());
+                            output.accept(BaseItems.STEEL_SLAB_ITEM.get());
+                            output.accept(BaseItems.STEEL_STAIRS_ITEM.get());
+                            output.accept(BaseItems.STEEL_WALL_ITEM.get());
+                            output.accept(BaseItems.STEEL_FENCE_GATE_ITEM.get());
+                            output.accept(BaseItems.STEEL_PRESSURE_PLATE_ITEM.get());
+                            output.accept(BaseItems.FERRITE.get());
+                            output.accept(BaseItems.FLATTER_HAMMER.get());
+                            output.accept(BaseItems.IRON_PLATE.get());
+                            output.accept(BaseItems.IRON_ROD.get());
+                            output.accept(BaseItems.RAW_STEEL.get());
+                            output.accept(BaseItems.STEEL_AXE.get());
+                            output.accept(BaseItems.STEEL_BOOTS.get());
+                            output.accept(BaseItems.STEEL_CHESTPLATE.get());
+                            output.accept(BaseItems.STEEL_HELMET.get());
+                            output.accept(BaseItems.STEEL_HOE.get());
+                            output.accept(BaseItems.STEEL_HORSE_ARMOR.get());
+                            output.accept(BaseItems.STEEL_LEGGINGS.get());
+                            output.accept(BaseItems.STEEL_NUGGET.get());
+                            output.accept(BaseItems.STEEL_PICKAXE.get());
+                            output.accept(BaseItems.STEEL_PLATE.get());
+                            output.accept(BaseItems.STEEL_ROD.get());
+                            output.accept(BaseItems.STEEL_SHOVEL.get());
+                            output.accept(BaseItems.STEEL_SWORD.get());
+                            output.accept(BaseBlocks.STEEL_BLOCK.get());
+                            output.accept(BaseBlocks.STEEL_FENCE.get());
+                            output.accept(BaseBlocks.STEEL_FENCE_GATE.get());
+                            output.accept(BaseBlocks.STEEL_PRESSURE_PLATE.get());
+                            output.accept(BaseBlocks.STEEL_SLAB.get());
+                            output.accept(BaseBlocks.STEEL_WALL.get());
+                            output.accept(BaseBlocks.STEEL_STAIRS.get());
                         })
         );
     }

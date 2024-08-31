@@ -3,6 +3,7 @@ package tv.mapper.mapperbase.world.level.block;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class CustomButtonBlock extends ButtonBlock implements ToolManager
 {
@@ -12,11 +13,7 @@ public class CustomButtonBlock extends ButtonBlock implements ToolManager
 
     public CustomButtonBlock(boolean isWooden, Properties properties, ToolTypes tool)
     {
-        super(properties,
-                isWooden ? 30 : 20,
-                isWooden,
-                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_OFF : SoundEvents.STONE_BUTTON_CLICK_OFF,
-                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_ON);
+        super(properties, BlockSetType.OAK, 30, isWooden);
         this.tool = tool;
         this.tier = ToolTiers.WOOD;
     }
@@ -24,11 +21,7 @@ public class CustomButtonBlock extends ButtonBlock implements ToolManager
     public CustomButtonBlock(boolean isWooden, Properties properties, ToolTypes tool, ToolTiers tier)
     {
 
-        super(properties,
-                isWooden ? 30 : 20,
-                isWooden,
-                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_OFF : SoundEvents.STONE_BUTTON_CLICK_OFF,
-                isWooden ? SoundEvents.WOODEN_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_ON);
+        super(properties, isWooden ? BlockSetType.OAK : BlockSetType.STONE, isWooden ? 30 : 20, isWooden);
         this.tool = tool;
         this.tier = tier;
     }

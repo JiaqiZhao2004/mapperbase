@@ -4,7 +4,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class BaseBlockModels extends BlockModelProvider
 {
     public BaseBlockModels(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper)
@@ -13,7 +15,7 @@ public class BaseBlockModels extends BlockModelProvider
     }
 
     @Override
-    public String getName()
+    public @NotNull String getName()
     {
         return "Mapper Base Block Models";
     }
@@ -27,7 +29,7 @@ public class BaseBlockModels extends BlockModelProvider
         getBuilder("steel_fence_inventory").parent(getExistingFile(mcLoc("block/fence_inventory"))).texture("texture", modLoc("block/steel_block"));
     }
 
-    protected void buildWall(String name, ResourceLocation texture)
+    protected void buildWall(@SuppressWarnings("SameParameterValue") String name, ResourceLocation texture)
     {
         getBuilder(name + "_wall_inventory").parent(getExistingFile(mcLoc("block/wall_inventory"))).texture("wall", texture);
         getBuilder(name + "_wall_post").parent(getExistingFile(mcLoc("block/template_wall_post"))).texture("wall", texture);

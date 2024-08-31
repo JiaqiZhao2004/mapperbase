@@ -5,20 +5,19 @@ import java.util.function.Supplier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import tv.mapper.mapperbase.MapperBase;
 
 @SuppressWarnings("deprecation")
 public enum BaseArmorMaterial implements ArmorMaterial
 {
     STEEL("steel", 25, new int[] {3, 6, 7, 3}, 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, () ->
-    {
-        return Ingredient.of(BaseItems.STEEL_INGOT.get());
-    });
+            Ingredient.of(BaseItems.STEEL_INGOT.get()));
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[] {13, 15, 16, 11};
     private final String name;
@@ -29,7 +28,7 @@ public enum BaseArmorMaterial implements ArmorMaterial
     private final float toughness;
     private final LazyLoadedValue<Ingredient> repairMaterial;
 
-    private BaseArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float p_i48533_8_, Supplier<Ingredient> repairMaterialSupplier)
+    BaseArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float p_i48533_8_, Supplier<Ingredient> repairMaterialSupplier)
     {
         this.name = nameIn;
         this.maxDamageFactor = maxDamageFactorIn;
@@ -40,14 +39,14 @@ public enum BaseArmorMaterial implements ArmorMaterial
         this.repairMaterial = new LazyLoadedValue<>(repairMaterialSupplier);
     }
 
-    public int getDurabilityForSlot(EquipmentSlot slotIn)
-    {
-        return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+    @Override
+    public int getDurabilityForType(ArmorItem.Type type) {
+        return MAX_DAMAGE_ARRAY[type.getSlot().getIndex()] * this.maxDamageFactor;
     }
 
-    public int getDefenseForSlot(EquipmentSlot slotIn)
-    {
-        return this.damageReductionAmountArray[slotIn.getIndex()];
+    @Override
+    public int getDefenseForType(ArmorItem.Type type) {
+        return this.damageReductionAmountArray[type.getSlot().getIndex()];
     }
 
     public int getEnchantmentValue()
@@ -55,18 +54,18 @@ public enum BaseArmorMaterial implements ArmorMaterial
         return this.enchantability;
     }
 
-    public SoundEvent getEquipSound()
+    public @NotNull SoundEvent getEquipSound()
     {
         return this.soundEvent;
     }
 
-    public Ingredient getRepairIngredient()
+    public @NotNull Ingredient getRepairIngredient()
     {
         return this.repairMaterial.get();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public String getName()
+    public @NotNull String getName()
     {
         return MapperBase.MODID + ":" + this.name;
     }

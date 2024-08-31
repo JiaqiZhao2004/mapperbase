@@ -51,10 +51,10 @@ public class BaseItems
     public static final RegistryObject<Item> STEEL_HOE = ITEMS.register("steel_hoe", () -> new HoeItem(BaseTiers.STEEL_TIER, -2, -0.0F, (new Item.Properties())));
     public static final RegistryObject<Item> STEEL_SWORD = ITEMS.register("steel_sword", () -> new SwordItem(BaseTiers.STEEL_TIER, 3, -2.4F, (new Item.Properties())));
 
-    public static final RegistryObject<Item> STEEL_HELMET = ITEMS.register("steel_helmet", () -> new ArmorItem(BaseArmorMaterial.STEEL, EquipmentSlot.HEAD, (new Item.Properties())));
-    public static final RegistryObject<Item> STEEL_CHESTPLATE = ITEMS.register("steel_chestplate", () -> new ArmorItem(BaseArmorMaterial.STEEL, EquipmentSlot.CHEST, (new Item.Properties())));
-    public static final RegistryObject<Item> STEEL_LEGGINGS = ITEMS.register("steel_leggings", () -> new ArmorItem(BaseArmorMaterial.STEEL, EquipmentSlot.LEGS, (new Item.Properties())));
-    public static final RegistryObject<Item> STEEL_BOOTS = ITEMS.register("steel_boots", () -> new ArmorItem(BaseArmorMaterial.STEEL, EquipmentSlot.FEET, (new Item.Properties())));
+    public static final RegistryObject<Item> STEEL_HELMET = ITEMS.register("steel_helmet", () -> new ArmorItem(BaseArmorMaterial.STEEL, ArmorItem.Type.HELMET, (new Item.Properties())));
+    public static final RegistryObject<Item> STEEL_CHESTPLATE = ITEMS.register("steel_chestplate", () -> new ArmorItem(BaseArmorMaterial.STEEL, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
+    public static final RegistryObject<Item> STEEL_LEGGINGS = ITEMS.register("steel_leggings", () -> new ArmorItem(BaseArmorMaterial.STEEL, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
+    public static final RegistryObject<Item> STEEL_BOOTS = ITEMS.register("steel_boots", () -> new ArmorItem(BaseArmorMaterial.STEEL, ArmorItem.Type.BOOTS, (new Item.Properties())));
 
     public static final RegistryObject<Item> STEEL_HORSE_ARMOR = ITEMS.register("steel_horse_armor", () -> new HorseArmorItem(9, new ResourceLocation(MapperBase.MODID, "textures/entity/horse/armor/horse_armor_steel.png"), (new Item.Properties()).stacksTo(1)));
 

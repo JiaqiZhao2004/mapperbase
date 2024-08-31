@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 
 public class BaseItemModels extends ItemModelProvider
 {
@@ -13,7 +14,7 @@ public class BaseItemModels extends ItemModelProvider
     }
 
     @Override
-    public String getName()
+    public @NotNull String getName()
     {
         return "Mapper Base Item Models";
     }
@@ -54,6 +55,7 @@ public class BaseItemModels extends ItemModelProvider
         getBuilder("steel_horse_armor").parent(new UncheckedModelFile("item/generated")).texture("layer0", modLoc("item/steel_horse_armor"));
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected void registerBlockBasics(String name, boolean block, boolean slab, boolean stairs, boolean wall, boolean pressure, boolean fence)
     {
         if(block)
