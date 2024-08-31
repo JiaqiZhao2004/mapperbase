@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -30,8 +31,8 @@ public class BaseBlocks
     public static final RegistryObject<CustomFenceBlock> STEEL_FENCE = BLOCKS.register("steel_fence", () -> new CustomFenceBlock(steelProperties, ToolTypes.PICKAXE, ToolTiers.IRON));
     public static final RegistryObject<CustomFenceGateBlock> STEEL_FENCE_GATE = BLOCKS.register("steel_fence_gate", () -> new CustomFenceGateBlock(steelProperties, ToolTypes.PICKAXE, ToolTiers.IRON));
 
-    public static void init()
+    public static void register(IEventBus bus)
     {
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BLOCKS.register(bus);
     }
 }

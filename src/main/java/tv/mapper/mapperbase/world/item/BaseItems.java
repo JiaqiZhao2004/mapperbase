@@ -2,6 +2,7 @@ package tv.mapper.mapperbase.world.item;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -49,8 +50,8 @@ public class BaseItems
 
     public static final RegistryObject<Item> STEEL_HORSE_ARMOR = ITEMS.register("steel_horse_armor", () -> new HorseArmorItem(9, new ResourceLocation(MapperBase.MODID, "textures/entity/horse/armor/horse_armor_steel.png"), (new Item.Properties()).stacksTo(1)));
 
-    public static void init()
+    public static void register(IEventBus eventBus)
     {
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ITEMS.register(eventBus);
     }
 }
