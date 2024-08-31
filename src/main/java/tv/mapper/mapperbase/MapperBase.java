@@ -1,14 +1,5 @@
 package tv.mapper.mapperbase;
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.BaseCoralFanBlock;
-import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,6 +37,7 @@ public class MapperBase
 
         MinecraftForge.EVENT_BUS.register(new BaseOreGenerator());
         MinecraftForge.EVENT_BUS.register(new BaseGroups());
+        MinecraftForge.EVENT_BUS.register(new BaseTiers());
     }
 
     private void setup(final FMLCommonSetupEvent event)

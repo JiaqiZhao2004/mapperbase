@@ -7,5 +7,5 @@
  EmbellishCraft: https://minecraft.curseforge.com/projects/embellishcraft  
  Road Stuff 2: https://www.curseforge.com/minecraft/mc-mods/road-stuff
  
- Targeted Minecraft version: 1.19.4  
+ Targeted Minecraft version: 1.20  
  Mod loader: Forge
