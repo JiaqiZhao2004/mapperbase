@@ -12,15 +12,13 @@ import tv.mapper.mapperbase.MapperBase;
 import tv.mapper.mapperbase.world.level.block.BaseBlocks;
 
 @Mod.EventBusSubscriber(modid = MapperBase.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class BaseGroups
-{
-
+public class BaseGroups {
     @SubscribeEvent
-    public static void buildContents() {
+    public static void buildContents(BuildCreativeModeTabContentsEvent event) {
         CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.mapperbase_group"))
             .icon(() -> new ItemStack(BaseItems.STEEL_INGOT.get()))
-            .withTabsAfter(CreativeModeTabs.BUILDING_BLOCKS)
+//            .withTabsAfter(CreativeModeTabs.BUILDING_BLOCKS)
             .displayItems((parameters, output) -> {
                 output.accept(BaseItems.BOLT.get());
                 output.accept(BaseItems.STEEL_FENCE_ITEM.get());

@@ -2,6 +2,7 @@ package tv.mapper.mapperbase.data.loot;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -19,13 +20,13 @@ public class BaseLoot
         String prefix = "minecraft:chests/";
         String name = evt.getName().toString();
 
-        if(name.startsWith(prefix))
+        if (name.startsWith(prefix))
         {
             String file = name.substring(name.indexOf(prefix) + prefix.length());
             switch(file)
             {
                 case "simple_dungeon":
-                    evt.getTable() addPool(getInjectPool(file));
+                    evt.setTable(LootTable.lootTable().withPool(getInjectPool(file)).build());
                     break;
                 default:
                     break;
@@ -33,9 +34,9 @@ public class BaseLoot
         }
     }
 
-    public static LootPool getInjectPool(String entryName)
+    public static LootPool.Builder getInjectPool(String entryName)
     {
-        return LootPool.lootPool().add(getInjectEntry(entryName, 1)).setBonusRolls(UniformGenerator.between(0, 1)).name("mapperbase_inject").build();
+        return LootPool.lootPool().add(getInjectEntry(entryName, 1)).setBonusRolls(UniformGenerator.between(0, 1));
     }
 
     @SuppressWarnings("rawtypes")

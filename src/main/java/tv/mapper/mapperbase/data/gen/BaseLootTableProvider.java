@@ -140,8 +140,7 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
 //            try {
-            // TODO: not null!
-            DataProvider.saveStable(pOutput, null, path);
+            DataProvider.saveStable(pOutput, GSON.toJsonTree(lootTable), path);
 //            } catch (IOException e) {
 //                MapperBase.LOGGER.error("Couldn't write loot table {}", path, e);
 //            }
