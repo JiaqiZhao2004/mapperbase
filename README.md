@@ -1,4 +1,5 @@
-# Mapper Base
+# Mapper Base 
+## Originally by Mapper:
  A base mod for my Minecraft mods.
  
  This is a small mod that adds contents used by my other mods. This is to avoid duplicating elements between my other mods.
